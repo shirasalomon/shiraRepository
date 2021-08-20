@@ -1,0 +1,12 @@
+<div class="header">
+  <div class="title">Weather App</div>
+  <nav>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">index</a>
+    <a routerLink="/fav" routerLinkActive="active">fav</a>
+  </nav>
+
+  <div class="mode-switcher" (click)="switchMode(mode)">Mode: {{mode}}</div>
+</div>
+
+
+<router-outlet></router-outlet>
