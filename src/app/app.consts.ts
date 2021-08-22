@@ -1,5 +1,5 @@
-export const API_KEY = '0SbGAfEzyILLW1o43cMIXDirFyeZ6WIQ';
-
+export const API_KEY = 'AqeEzj0ecSRID3QTrRWW74BS7Vcm2ETI';
+//defualt value of tel-aviv city
 export const DEFAULT_LAT = 32.109333;
 export const DEFAULT_LNG = 34.855499;
 

@@ -20,23 +20,23 @@ export class AppService {
 
   }
 
-
+//get auto user location
   getGeoPosition(lat: number, lng: number): Observable<any> {
     const url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search`;
     return this.getRequest(url, `${lat},${lng}`);
   }
-
+//get auto complete locations
   getAutoComplete(key: string): Observable<any> {
     const url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete`;
     return this.getRequest(url, `${key}`);
   }
-
+//get five days forcast
   get5DaysOfForecasts(key: string): Observable<any> {
     const url = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}`;
     return this.getRequest(url);
   }
 
-
+//Get Current Conditions data for a specific location.
   getCurrentConditions(key: string): Observable<any> {
     const url = `https://dataservice.accuweather.com/currentconditions/v1/${key}`;
     return this.getRequest(url);

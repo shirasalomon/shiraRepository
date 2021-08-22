@@ -1,27 +1,33 @@
+<!--autoComplete city input-->
 <input type="text" class="autoComplete"
-       [ngModel]="autoCompleteValue"
-       (input)="autoCompleteInput.next($event.target.value)">
+       [ngModel]="autoCompleteCityValue"
+       (input)="autoCompleteCityInput.next($event.target.value)"/>
 
-<div class="autocomplete-suggestions" *ngIf="autoCompletedSuggestions">
-  <div class="suggestion" *ngFor="let suggestion of autoCompletedSuggestions" (click)="selectSuggestion(suggestion)">
+<div class="autocomplete-suggestions" *ngIf="autoCompletedCitiesSuggestions">
+  <div class="suggestion" *ngFor="let suggestion of autoCompletedCitiesSuggestions" (click)="selectSuggestion(suggestion)">
     {{suggestion.LocalizedName}}, {{suggestion.Country.LocalizedName}}
   </div>
 </div>
 
-
+<!--current weather forcast -->
 <div class="title">
   <div class="name">{{cityName}}</div>
+  <div class=today>{{forecasts[0].Temperature.Minimum.Value}}° {{forecasts[0].Temperature.Minimum.Unit}} - {{forecasts[0].Temperature.Maximum.Value}}° {{forecasts[0].Temperature.Maximum.Unit}}</div>
+  <img src="{{forecasts[0].Day.Icon | accuweatherIcon }}"/>
   <div class="headLine">{{headLine}}</div>
 </div>
 
-<div class="fav" *ngIf="cityName" (click)="toggleFavorites()">{{favState}} Favorites</div>
+
+<!--add to favorites -->
+<div class="fav" *ngIf="cityName" (click)="toggleFavorites()">{{favoritesState}} Favorites</div>
 
 
+<!--5 days weather forcast -->
 <div class="forecasts">
   <div class="forecast" *ngFor="let forecast of forecasts;">
     <div class="date">{{forecast.Date | date: 'fullDate'}}</div>
     <div class="phrase"> {{forecast.Day.IconPhrase}}</div>
-    <div class="temperature"> {{forecast.Temperature.Minimum.Value}}{{forecast.Temperature.Minimum.Unit}} - {{forecast.Temperature.Maximum.Value}}{{forecast.Temperature.Maximum.Unit}}</div>
+    <div class="temperature"> {{forecast.Temperature.Minimum.Value}}° {{forecast.Temperature.Minimum.Unit}} - {{forecast.Temperature.Maximum.Value}}° {{forecast.Temperature.Maximum.Unit}}</div>
     <img src="{{forecast.Day.Icon | accuweatherIcon }}"/>
   </div>
 </div>

@@ -1,10 +1,12 @@
 <div class="header">
   <div class="title">Weather App</div>
+  <!--routing from home page and favorite page--->
   <nav>
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">index</a>
     <a routerLink="/fav" routerLinkActive="active">fav</a>
   </nav>
 
+<!--light mode or dark mode-->
   <div class="mode-switcher" (click)="switchMode(mode)">Mode: {{mode}}</div>
 </div>
 

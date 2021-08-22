@@ -1,11 +1,12 @@
 :root {
 
-  --bg-color: #f8fafb;
-  --text-color: #272727;
-  --primary-color: #7e4aac;
-  --primary-light-color: #b587dd;
-  --secondary-color: #8c94a8;
-  --secondary-light-color: #b3b9c8;
+  --bg-color:white;
+  --text-color: rgb(6, 51, 106);
+  --primary-color:red;
+  --primary-light-color: red;
+  --secondary-color: yellow;
+  --secondary-light-color: red;
+  --border-color: red;
 }
 
 $variables: (
@@ -15,6 +16,7 @@ $variables: (
   --primary-light-color: var(--primary-light-color),
   --secondary-color: var(--secondary-color),
   --secondary-light-color: var(--secondary-light-color),
+  --border-color: var(border-color),
 );
 
 @function var($variable) {

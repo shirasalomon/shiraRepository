@@ -1,5 +1,6 @@
+<!--display favorite cities weather forcast-->
 <div class="forecasts">
-  <div class="forecast" *ngFor="let forecast of favArr;">
+  <div class="forecast" *ngFor="let forecast of favList;">
     <div class="title"> {{forecast.title}}</div>
     <div class="phrase"> {{forecast.text}}</div>
     <div class="temperature"> {{forecast.temperature.Metric.Value}}{{forecast.temperature.Metric.Unit}}</div>

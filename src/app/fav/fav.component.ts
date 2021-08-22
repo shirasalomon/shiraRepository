@@ -17,8 +17,8 @@ export class FavComponent implements OnInit {
 
   ngUnSubscribe: Subject<void> = new Subject<void>();
 
-  favArr = [];
-
+  favList = [];
+//fill favorites arr on state changed
   ngOnInit() {
     this.weatherService.stateChanged
       .pipe(
@@ -27,7 +27,7 @@ export class FavComponent implements OnInit {
       )
       .subscribe(state => {
         Object.keys(state).map((key) => {
-          this.favArr.push(state[key]);
+          this.favList.push(state[key]);
         });
       });
   }

@@ -4,9 +4,8 @@ export const IMG_URL = `https://developer.accuweather.com/sites/default/files`;
 @Pipe({
   name: 'accuweatherIcon'
 })
+//calculate weather icon
 export class AccuweatherIconPipe implements PipeTransform {
-
-
   transform(value: any): any {
     if (value < 10) {
       value = `0${value}`;

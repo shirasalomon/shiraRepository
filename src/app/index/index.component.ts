@@ -14,13 +14,13 @@ import {WeatherService} from '../weather.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit, OnDestroy {
-  autoCompleteInput = new Subject();
-  autoCompleteValue;
-  autoCompletedSuggestions: AutoCompleteSuggestions[];
+  autoCompleteCityInput = new Subject();
+  autoCompleteCityValue;
+  autoCompletedCitiesSuggestions: AutoCompleteSuggestions[];
   cityName: string;
   headLine: string;
   forecasts: DailyForecast[];
-  favState;
+  favoritesState;
   selectedKey: any;
 
   constructor(protected appService: AppService, protected weatherService: WeatherService) {
@@ -29,7 +29,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   ngUnSubscribe: Subject<void> = new Subject<void>();
 
   ngOnInit() {
+    debugger;
     if (navigator.geolocation) {
+    //get auto user location
+      
       navigator.geolocation.getCurrentPosition((position) => {
         const {latitude, longitude} = position.coords;
         this.appService.getGeoPosition(latitude, longitude).subscribe((data: GeoPositionRes) => {
@@ -37,13 +40,15 @@ export class IndexComponent implements OnInit, OnDestroy {
         });
       });
     } else {
+      //defualt value tel-aviv
+
       this.appService.getGeoPosition(DEFAULT_LAT, DEFAULT_LNG).subscribe((data: GeoPositionRes) => {
         this.handleInitPosition(data);
       });
     }
 
-
-    this.autoCompleteInput
+//get all autocomplete locations
+    this.autoCompleteCityInput
       .pipe(
         filter((data: string) => data.length > 0),
         takeUntil(this.ngUnSubscribe),
@@ -53,27 +58,28 @@ export class IndexComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((suggestions: AutoCompleteSuggestions[]) => {
-        this.autoCompletedSuggestions = suggestions;
+        this.autoCompletedCitiesSuggestions = suggestions;
       });
   }
 
-
+//get data from state
   private getFavState(Key: string) {
     const storeState = this.weatherService.get();
     return storeState[Key] ? REMOVE_FAV : ADD_FAV;
   }
-
+//select city from autocomplete cities options
   selectSuggestion(suggestion: AutoCompleteSuggestions) {
-    this.favState          = this.getFavState(suggestion.Key);
+    this.favoritesState          = this.getFavState(suggestion.Key);
     this.cityName          = `${suggestion.LocalizedName},${suggestion.Country.LocalizedName}`;
     this.autoCompleteValue = this.cityName;
+
     this.getFiveDays(suggestion.Key);
-    this.autoCompletedSuggestions = null;
+    this.autoCompletedCitiesSuggestions = null;
   }
 
-
+//init state and call to 5 days forcast function
   private handleInitPosition(geoPositionRes: GeoPositionRes) {
-    this.favState    = this.getFavState(geoPositionRes.Key);
+    this.favoritesState    = this.getFavState(geoPositionRes.Key);
     this.cityName    = `${geoPositionRes.ParentCity.EnglishName},${geoPositionRes.Country.EnglishName}`;
     this.getFiveDays(geoPositionRes.Key);
   }
@@ -84,7 +90,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.ngUnSubscribe.complete();
   }
 
-
+//weather forcast for 5 days
   getFiveDays(key) {
     this.selectedKey = key;
     this.appService.get5DaysOfForecasts(key).subscribe((fiveDaysForecastData: FiveDaysForecast) => {
@@ -93,7 +99,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
   }
 
-
+//add or remove location to favorites
   toggleFavorites() {
     const faveState = this.getFavState(this.selectedKey);
     const selectedCity = {
@@ -106,7 +112,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.weatherService.remove(selectedCity);
     }
 
-    this.favState = faveState === ADD_FAV ? REMOVE_FAV : ADD_FAV;
+    this.favoritesState = faveState === ADD_FAV ? REMOVE_FAV : ADD_FAV;
 
 
   }

@@ -16,6 +16,7 @@ export class WeatherService extends ObservableStore<{}> {
 
   }
 
+  //add current data to favorites
   add(favCity) {
     const state = this.getState() || {};
 
@@ -36,7 +37,7 @@ export class WeatherService extends ObservableStore<{}> {
 
 
   }
-
+//remove city from favorites
   remove(favCity) {
     const state = this.getState() || {};
     delete state[favCity.key];
